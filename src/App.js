@@ -1,11 +1,12 @@
-
-import './App.css';
 import UserProfile from './component/UserProfile'
+import './App.css';
 
-function App() {
+
+const App = () => {
   return (
     <div className="App">
-       <UserProfile/>
+       <UserProfile />
+       <h2 className='ht'>test</h2>
     </div>
   );
 }
