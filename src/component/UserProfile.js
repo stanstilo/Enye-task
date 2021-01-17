@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
+import TablePaginationDemo from "./Pagination";
+import TablePagination from '@material-ui/core/TablePagination';
 import "./UserProfile.css";
 
-export default function App() {
+
+const UserProfile = () => {
+
   const [data, setData] = useState({
     loading: false,
     error: null,
@@ -11,6 +15,21 @@ export default function App() {
   const [searchValue, setSearchValue] = useState("");
   const [filteredData, setFilteredData] = useState([]);
   const [selectValue, setSelectValue] = useState("all");
+
+  const [page, setPage] = useState(0);
+  const [userPerPage, setUserPerPage] = useState(20);
+ 
+  const indexOfLastUser = page * userPerPage
+  const indexOfFirstUser = indexOfLastUser + userPerPage
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setUserPerPage(event.target.value, 20)
+    setPage(0);
+  };
 
   useEffect(() => {
     const handleLoadData = async () => {
@@ -90,7 +109,8 @@ export default function App() {
   };
 
   return (
-    <div className="user-profile">
+    <div className="user-table">
+    <div className="user-profile-container">
       {data.loading && (
         <div>
           <h3>Loading</h3>
@@ -104,15 +124,18 @@ export default function App() {
       {data.result && data.result.length > 0 && (
 
         <>
+        <div className = "search-filter-container">
+        <div className = 'pt-5 input-search-container'>
           <input
             type="text"
             placeholder="search"
             value={searchValue}
             onChange={handleSearchValue}
+            className='search-input'
           />
-          <button>Search</button>
-
-          <div>
+          </div>
+        
+          <div className="pt-5 filter-row">
             Filter:{" "}
             <select value={selectValue} onChange={handleSelectValue}>
               <option value="all">All</option>
@@ -128,22 +151,24 @@ export default function App() {
               </optgroup>
             </select>
           </div>
-
+          </div>
+          {/* TABLE SECTION */}
           <table className='table'>
             <thead>
               <tr>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Gender</th>
-                <th>Email</th>
-                <th>Phone Number</th>
-                <th>Payment Method</th>
-                <th>Credit Card Type</th>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">Gender</th>
+                <th scope="col">Email</th>
+                <th scope="col">Phone Number</th>
+                <th scope="col">Payment Method</th>
+                <th scope="col">Credit Card Type</th>
               </tr>
             </thead>
+            
             <tbody>
               {filteredData.length > 0 &&
-                filteredData.slice(0, 20).map((record) => {
+                filteredData.slice(indexOfLastUser, indexOfFirstUser).map(record => {
                   const {
                     FirstName,
                     LastName,
@@ -168,8 +193,18 @@ export default function App() {
                 })}
             </tbody>
           </table>
-        </>
+      <TablePagination
+      count={filteredData.length}
+      page={page}
+      onChangePage={handleChangePage}
+      rowsPerPage={userPerPage}
+      onChangeRowsPerPage={handleChangeRowsPerPage}
+     />
+      </>
       )}
+    </div>
     </div>
   );
 }
+
+export default UserProfile

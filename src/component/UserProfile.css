@@ -1,4 +1,29 @@
-.user-profile{
+.user-profile-container{
     margin: 0 auto;
     width:80%;
+    border:2px solid #fff;
+    background-color:#fff;
+    box-shadow:10px 10px 10px #cfdbf3;
+    margin-top:60px;
+}
+
+.search-filter-container{
+    display:flex;
+    justify-content: space-between;
+}
+.search-input{
+  outline:none;
+  border:none;
+}
+
+.search-input:focus{
+    outline:none
+}
+.table{
+    max-width:100%;
+    width:100%
+}
+
+.user-table{
+    width:100%
 }

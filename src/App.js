@@ -6,7 +6,6 @@ const App = () => {
   return (
     <div className="App">
        <UserProfile />
-       <h2 className='ht'>test</h2>
     </div>
   );
 }
