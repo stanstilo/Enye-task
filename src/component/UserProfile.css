@@ -24,6 +24,21 @@
     width:100%
 }
 
-.user-table{
-    width:100%
+
+.spinner-container{
+  text-align:center;
+  font-size:30px;
+}
+
+.spinner {
+    animation: spin infinite 5s linear;
+  }
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

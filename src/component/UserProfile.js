@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import TablePaginationDemo from "./Pagination";
 import TablePagination from '@material-ui/core/TablePagination';
+// import {FontAwesome} from 'react-icons/fa';
+import {FaSpinner} from 'react-icons/fa';
 import "./UserProfile.css";
 
 
@@ -30,6 +31,7 @@ const UserProfile = () => {
     setUserPerPage(event.target.value, 20)
     setPage(0);
   };
+
 
   useEffect(() => {
     const handleLoadData = async () => {
@@ -109,11 +111,11 @@ const UserProfile = () => {
   };
 
   return (
-    <div className="user-table">
+    <div>
     <div className="user-profile-container">
-      {data.loading && (
-        <div>
-          <h3>Loading</h3>
+    {data.loading && (
+        <div className='spinner-container'>
+          <FaSpinner className="spinner"/>
         </div>
       )}
       {data.error && (
@@ -140,35 +142,36 @@ const UserProfile = () => {
             <select value={selectValue} onChange={handleSelectValue}>
               <option value="all">All</option>
               <optgroup label="Gender">
-                {handleFilterTitle("Gender").map((item) => {
-                  return <option value={item}>{item}</option>;
+                {handleFilterTitle("Gender").map((item, index) => {
+                  return <option key={index} value={item}>{item}</option>;
                 })}
               </optgroup>
               <optgroup label="Payment Method">
-                {handleFilterTitle("PaymentMethod").map((item) => {
-                  return <option value={item}>{item}</option>;
+                {handleFilterTitle("PaymentMethod").map((item, index) => {
+                  return <option key={index} value={item}>{item}</option>;
                 })}
               </optgroup>
             </select>
           </div>
           </div>
+
           {/* TABLE SECTION */}
           <table className='table'>
             <thead>
               <tr>
-                <th scope="col">First Name</th>
-                <th scope="col">Last Name</th>
-                <th scope="col">Gender</th>
-                <th scope="col">Email</th>
-                <th scope="col">Phone Number</th>
-                <th scope="col">Payment Method</th>
-                <th scope="col">Credit Card Type</th>
+                <th>First Name</th>
+                <th>Last Name</th>
+                <th>Gender</th>
+                <th>Email</th>
+                <th>Phone Number</th>
+                <th>Payment Method</th>
+                <th>Credit Card Type</th>
               </tr>
             </thead>
             
             <tbody>
               {filteredData.length > 0 &&
-                filteredData.slice(indexOfLastUser, indexOfFirstUser).map(record => {
+                filteredData.slice(indexOfLastUser, indexOfFirstUser).map((record, index) => {
                   const {
                     FirstName,
                     LastName,
@@ -180,7 +183,7 @@ const UserProfile = () => {
                   } = record;
 
                   return (
-                    <tr>
+                    <tr key={index}>
                       <td>{FirstName}</td>
                       <td>{LastName}</td>
                       <td>{Gender}</td>
@@ -193,12 +196,24 @@ const UserProfile = () => {
                 })}
             </tbody>
           </table>
-      <TablePagination
+
+    <TablePagination
       count={filteredData.length}
       page={page}
       onChangePage={handleChangePage}
       rowsPerPage={userPerPage}
       onChangeRowsPerPage={handleChangeRowsPerPage}
+      backIconButtonProps={{
+        "aria-label": "Previous Page",
+        style: {color: page===0?"#b5b8c4":"#7cb5ec" },
+        autoid: "pagination-button-next-collector",
+      }}
+      nextIconButtonProps={{
+        "aria-label": "Next Page",
+        style: {color: page >= Math.ceil(filteredData.length /  userPerPage) - 1 ? "#b5b8c4" : "#7cb5ec"},
+        autoid: "pagination-button-previous-collector",
+      }}
+      rowsPerPageOptions={[20, 40,  60, 80, 100]}
      />
       </>
       )}
