@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import TablePagination from '@material-ui/core/TablePagination';
-// import {FontAwesome} from 'react-icons/fa';
 import {FaSpinner} from 'react-icons/fa';
 import "./UserProfile.css";
 
@@ -126,18 +125,22 @@ const UserProfile = () => {
       {data.result && data.result.length > 0 && (
 
         <>
+        <div className = 'profile-text'>
+         <h2>User Profiles</h2>
+         </div>
         <div className = "search-filter-container">
-        <div className = 'pt-5 input-search-container'>
+        <div className = 'pt-3 ml-4 input-search-container'>
+         
           <input
             type="text"
-            placeholder="search"
+            placeholder="search users by name"
             value={searchValue}
             onChange={handleSearchValue}
             className='search-input'
           />
           </div>
         
-          <div className="pt-5 filter-row">
+          <div className="pt-3 filter-row">
             Filter:{" "}
             <select value={selectValue} onChange={handleSelectValue}>
               <option value="all">All</option>
@@ -205,12 +208,12 @@ const UserProfile = () => {
       onChangeRowsPerPage={handleChangeRowsPerPage}
       backIconButtonProps={{
         "aria-label": "Previous Page",
-        style: {color: page===0?"#b5b8c4":"#7cb5ec" },
+        style: {color: page===0?"#b5b8c4":"#7A6CF2" },
         autoid: "pagination-button-next-collector",
       }}
       nextIconButtonProps={{
         "aria-label": "Next Page",
-        style: {color: page >= Math.ceil(filteredData.length /  userPerPage) - 1 ? "#b5b8c4" : "#7cb5ec"},
+        style: {color: page >= Math.ceil(filteredData.length /  userPerPage) - 1 ? "#b5b8c4" : "#7A6CF2"},
         autoid: "pagination-button-previous-collector",
       }}
       rowsPerPageOptions={[20, 40,  60, 80, 100]}

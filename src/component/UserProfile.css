@@ -42,3 +42,18 @@
     transform: rotate(360deg);
   }
 }
+
+.search-input{
+  border:1px solid #7A6CF2;
+  width:300px;
+  border-radius:4px;
+  padding:8px
+}
+
+.profile-text{
+  text-align:center;
+  padding-top:30px;
+}
+.filter-row{
+  margin-right:5%
+}
