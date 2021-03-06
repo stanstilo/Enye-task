@@ -31,7 +31,6 @@ const UserProfile = () => {
     setPage(0);
   };
 
-
   useEffect(() => {
     const handleLoadData = async () => {
       setData({
@@ -139,7 +138,7 @@ const UserProfile = () => {
             className='search-input'
           />
           </div>
-        
+        {/* filter section */}
           <div className="pt-3 filter-row">
             Filter:{" "}
             <select value={selectValue} onChange={handleSelectValue}>
